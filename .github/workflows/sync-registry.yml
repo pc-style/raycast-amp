@@ -1,0 +1,50 @@
+name: Sync registry
+
+# Copies each release into pc-style/raycast-amp-registry as extensions/amp/, the layout
+# launchers expect from a GitHub registry. Run it by hand to resync the latest tag.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency: sync-registry
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check out the latest tag
+        if: github.event_name == 'workflow_dispatch'
+        run: git checkout "$(git describe --tags --abbrev=0)"
+      - uses: actions/checkout@v4
+        with:
+          repository: pc-style/raycast-amp-registry
+          ssh-key: ${{ secrets.REGISTRY_DEPLOY_KEY }}
+          path: registry
+      - name: Copy the extension
+        run: |
+          rm -rf registry/extensions/amp
+          mkdir -p registry/extensions/amp
+          git ls-files | grep -v -E '^(\.agents/|\.github/|install\.sh$)' | tar -cf - -T - | tar -xf - -C registry/extensions/amp
+          # The registry README is the store-facing one: drop the GitHub-only sections.
+          python3 - <<'EOF'
+          import re
+          p = "registry/extensions/amp/README.md"
+          s = open(p).read()
+          s = re.sub(r"<!-- github-only -->.*?<!-- /github-only -->\n?", "", s, flags=re.S)
+          open(p, "w").write(re.sub(r"\n{3,}", "\n\n", s))
+          EOF
+      - name: Commit and push
+        working-directory: registry
+        run: |
+          git add -A
+          if git diff --cached --quiet; then echo "Registry already up to date"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "Amp extension $(git -C .. describe --tags) (raycast-amp $(git -C .. rev-parse --short HEAD))"
+          git push

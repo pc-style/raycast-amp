@@ -103,6 +103,8 @@ CI runs lint, a production build, and `tsc` on every push to `main` and every pu
 git tag v1.1.0 && git push origin v1.1.0
 ```
 
+The same tag also syncs the extension into [pc-style/raycast-amp-registry](https://github.com/pc-style/raycast-amp-registry) as `extensions/amp/`, for launchers that install from GitHub registries.
+
 Issues and pull requests are welcome.
 <!-- /github-only -->
 
