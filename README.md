@@ -46,6 +46,14 @@ Start, find, steer, and watch [Amp](https://ampcode.com) threads without leaving
 You need macOS with [Raycast](https://raycast.com), Node.js 22.22 or later, and the [Amp CLI](https://ampcode.com/install) signed in with `amp login`.
 
 ```sh
+curl -fsSL https://raw.githubusercontent.com/pc-style/raycast-amp/main/install.sh | bash
+```
+
+The script clones the extension to `~/.raycast-amp` (set `RAYCAST_AMP_DIR` to change it), installs its dependencies, and imports it into Raycast. Run it again to update.
+
+Or do the same by hand:
+
+```sh
 git clone https://github.com/pc-style/raycast-amp.git
 cd raycast-amp
 npm ci
