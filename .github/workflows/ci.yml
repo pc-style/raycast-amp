@@ -20,5 +20,6 @@ jobs:
       - run: npm ci
       # ESLint, Prettier, and the Raycast manifest and icon checks.
       - run: npx ray lint -I --exit-on-error
-      - run: npx tsc --noEmit
       - run: npx ray build -e dist -o dist -I --exit-on-error
+      # ray build generates raycast-env.d.ts, which declares Preferences and Arguments.
+      - run: npx tsc --noEmit

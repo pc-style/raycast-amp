@@ -19,8 +19,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx ray lint -I --exit-on-error
-      - run: npx tsc --noEmit
       - run: npx ray build -e dist -o dist -I --exit-on-error
+      # ray build generates raycast-env.d.ts, which declares Preferences and Arguments.
+      - run: npx tsc --noEmit
       - name: Package
         run: cd dist && zip -qr "../raycast-amp-${GITHUB_REF_NAME}.zip" .
       - name: Publish release
