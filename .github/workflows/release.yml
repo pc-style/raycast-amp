@@ -1,0 +1,29 @@
+name: Release
+
+# Push a tag such as v1.0.0 to publish a GitHub release with the built extension attached.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx ray lint -I --exit-on-error
+      - run: npx tsc --noEmit
+      - run: npx ray build -e dist -o dist -I --exit-on-error
+      - name: Package
+        run: cd dist && zip -qr "../raycast-amp-${GITHUB_REF_NAME}.zip" .
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "raycast-amp-${GITHUB_REF_NAME}.zip" --generate-notes --verify-tag

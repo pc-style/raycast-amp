@@ -27,6 +27,14 @@ Everything goes through public CLI commands: `threads list/search/export/markdow
 - **Puck** conversations are ordinary threads in `puck` mode, so Ask Puck sends with `threads continue` and waits for the reply, using `amp top` to know when Puck stops working.
 - **Portals** have no CLI listing. Portal hosts embed the thread UUID in base36 (`t-<uuid36>-p<port>.onamp.dev`), so Open Portal reads the transcripts of threads whose orbs are connected and picks out URLs on their own hosts. Portals an agent never printed, and custom portal hostnames, won't appear.
 
+## Releases
+
+CI lints, type-checks, and builds every push to `main` and every pull request. Pushing a tag such as `v1.0.0` publishes a GitHub release with the built extension attached:
+
+```sh
+git tag v1.0.0 && git push origin v1.0.0
+```
+
 ## Development
 
 ```sh

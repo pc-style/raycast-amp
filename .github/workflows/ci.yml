@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # ESLint, Prettier, and the Raycast manifest and icon checks.
+      - run: npx ray lint -I --exit-on-error
+      - run: npx tsc --noEmit
+      - run: npx ray build -e dist -o dist -I --exit-on-error
