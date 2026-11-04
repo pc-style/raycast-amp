@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1] - 2026-11-04
+
+- Currently Running shows the Amp wordmark in the menu bar, green while agents work.
+- Thread rows no longer show the thread ID subtitle.
+- README screenshots use demo data.
+
 ## [1.0.0] - 2026-11-04
 
 First release.
