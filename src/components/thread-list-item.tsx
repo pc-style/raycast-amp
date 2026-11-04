@@ -24,7 +24,6 @@ export function ThreadListItem({
   return (
     <List.Item
       title={title}
-      subtitle={thread.id.slice(0, 10)}
       keywords={[thread.id, ...(project ? [project] : [])]}
       icon={
         live?.working

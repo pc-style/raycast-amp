@@ -1,4 +1,6 @@
-# Amp for Raycast
+<p align="center"><img src="assets/amp-icon.png" alt="Amp" width="96"></p>
+
+<h1 align="center">Amp for Raycast</h1>
 
 [![CI](https://github.com/pc-style/raycast-amp/actions/workflows/ci.yml/badge.svg)](https://github.com/pc-style/raycast-amp/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/pc-style/raycast-amp)](https://github.com/pc-style/raycast-amp/releases)
@@ -34,6 +36,9 @@ Start, find, steer, and watch [Amp](https://ampcode.com) threads without leaving
 <p>
   <img src="media/open-portal.jpg" alt="Open Portal" width="49%">
   <img src="media/new-thread.jpg" alt="New Thread form" width="49%">
+</p>
+<p>
+  <img src="media/search-projects.jpg" alt="Search Projects" width="49%">
 </p>
 
 ## Install

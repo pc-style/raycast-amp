@@ -13,7 +13,7 @@ export default function CurrentlyRunning() {
   return (
     <MenuBarExtra
       isLoading={isLoading}
-      icon={working.length ? { source: Icon.CircleProgress50, tintColor: Color.Green } : { source: Icon.Circle }}
+      icon={{ source: "amp-menubar.png", tintColor: working.length ? Color.Green : Color.PrimaryText }}
       title={working.length ? String(working.length) : undefined}
       tooltip={working.length ? `${working.length} Amp agents working` : "No Amp agents working"}
     >
