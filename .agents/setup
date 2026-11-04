@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+# Node and npm come with the orb image. A warm npm ci takes a few seconds, so no cache check.
+echo "setup: npm ci"
+time npm ci --no-audit --no-fund
